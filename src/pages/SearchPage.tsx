@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Slider } from '@/components/ui/slider';
 import MechanicCard from '@/components/MechanicCard';
 import Navigation from '@/components/Navigation';
+import HeroMap from '@/components/HeroMap';
 import { Search, MapPin, Filter, Map, List } from 'lucide-react';
 
 const SearchPage = () => {
@@ -17,8 +18,8 @@ const SearchPage = () => {
   const mechanics = [
     {
       id: '1',
-      name: 'Robert Fox',
-      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&object=faces&crop=face',
+      name: 'Tendai Mukamuri',
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&object=faces&crop=face',
       rating: 4.8,
       reviewCount: 365,
       specialties: ['Engine Repair', 'Brake Service', 'Oil Change'],
@@ -31,7 +32,7 @@ const SearchPage = () => {
     },
     {
       id: '2',
-      name: 'Sarah Johnson',
+      name: 'Grace Chinamhora',
       avatar: 'https://images.unsplash.com/photo-1494790108755-2616b50a1e7c?w=150&h=150&object=faces&crop=face',
       rating: 4.9,
       reviewCount: 278,
@@ -45,8 +46,8 @@ const SearchPage = () => {
     },
     {
       id: '3',
-      name: 'Michael Chen',
-      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&object=faces&crop=face',
+      name: 'Taurai Madzore',
+      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&object=faces&crop=face',
       rating: 4.7,
       reviewCount: 198,
       specialties: ['Electrical', 'Battery', 'Starter Motor'],
@@ -55,6 +56,34 @@ const SearchPage = () => {
       priceRange: '$18-45',
       isAvailable: false,
       responseTime: '~30 mins',
+      verified: true
+    },
+    {
+      id: '4',
+      name: 'Chipo Mangwende',
+      avatar: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=150&h=150&object=faces&crop=face',
+      rating: 4.9,
+      reviewCount: 342,
+      specialties: ['Bodywork', 'Paint Jobs', 'Dent Removal'],
+      location: 'Borrowdale',
+      distance: '5.1 km',
+      priceRange: '$30-80',
+      isAvailable: true,
+      responseTime: '~25 mins',
+      verified: true
+    },
+    {
+      id: '5',
+      name: 'Blessed Nyamhunga',
+      avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&object=faces&crop=face',
+      rating: 4.6,
+      reviewCount: 156,
+      specialties: ['Suspension', 'Alignment', 'Tire Service'],
+      location: 'Waterfalls',
+      distance: '6.3 km',
+      priceRange: '$22-55',
+      isAvailable: true,
+      responseTime: '~35 mins',
       verified: true
     }
   ];
@@ -72,9 +101,15 @@ const SearchPage = () => {
       <Navigation />
       
       <div className="container mx-auto px-4 py-8">
-        {/* Search Header */}
+        {/* Search Header with Map */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-4">Find Mechanics</h1>
+          
+          {/* Map Section */}
+          <div className="mb-6">
+            <HeroMap />
+          </div>
+          
           <div className="flex flex-col lg:flex-row gap-4">
             <div className="flex-1 relative">
               <MapPin className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
@@ -231,11 +266,8 @@ const SearchPage = () => {
               </div>
             ) : (
               <Card className="h-96">
-                <CardContent className="p-6 h-full flex items-center justify-center">
-                  <div className="text-center">
-                    <Map className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                    <p className="text-gray-600">Map view coming soon</p>
-                  </div>
+                <CardContent className="p-6 h-full">
+                  <HeroMap />
                 </CardContent>
               </Card>
             )}

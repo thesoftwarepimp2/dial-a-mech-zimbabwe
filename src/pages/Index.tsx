@@ -4,6 +4,7 @@ import Navigation from '@/components/Navigation';
 import HeroSection from '@/components/HeroSection';
 import ServiceCategories from '@/components/ServiceCategories';
 import FeaturedMechanics from '@/components/FeaturedMechanics';
+import PromotionsSection from '@/components/PromotionsSection';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Star, Shield, Clock, Award } from 'lucide-react';
@@ -36,6 +37,24 @@ const Index = () => {
     <div className="min-h-screen">
       <Navigation />
       <HeroSection />
+      
+      {/* Featured Promotions Section */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+              Special Offers
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Save money with our current promotions and special deals
+            </p>
+          </div>
+          <div className="max-w-4xl mx-auto">
+            <PromotionsSection />
+          </div>
+        </div>
+      </section>
+      
       <ServiceCategories />
       <FeaturedMechanics />
       

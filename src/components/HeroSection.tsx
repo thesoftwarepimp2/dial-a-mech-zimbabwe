@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Search, MapPin } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import HeroMap from './HeroMap';
 
 const HeroSection = () => {
   return (
@@ -11,14 +12,15 @@ const HeroSection = () => {
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl lg:text-6xl font-bold mb-6 animate-fade-up">
-            Experience Effortless
-            <span className="block text-yellow-300">Car Service Solutions</span>
+            Find Trusted Mechanics
+            <span className="block text-yellow-300">Near You in Zimbabwe</span>
           </h1>
           
-          <p className="text-lg lg:text-xl mb-8 text-purple-100 animate-fade-up">
-            Find trusted mechanics near you in Zimbabwe. Book services, track progress, 
-            and get your vehicle serviced with confidence.
-          </p>
+          <div className="max-w-3xl mx-auto mb-8">
+            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 animate-fade-up">
+              <HeroMap />
+            </div>
+          </div>
 
           <div className="max-w-2xl mx-auto mb-8">
             <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 animate-fade-up">
