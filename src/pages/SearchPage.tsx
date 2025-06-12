@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -106,7 +105,7 @@ const SearchPage = () => {
           <h1 className="text-3xl font-bold text-gray-900 mb-4">Find Mechanics</h1>
           
           {/* Map Section */}
-          <div className="mb-6">
+          <div className="mb-6 -mx-4 sm:-mx-6 lg:-mx-8">
             <HeroMap />
           </div>
           
@@ -266,8 +265,10 @@ const SearchPage = () => {
               </div>
             ) : (
               <Card className="h-96">
-                <CardContent className="p-6 h-full">
-                  <HeroMap />
+                <CardContent className="p-0 h-full">
+                  <div className="h-full -m-6">
+                    <HeroMap />
+                  </div>
                 </CardContent>
               </Card>
             )}

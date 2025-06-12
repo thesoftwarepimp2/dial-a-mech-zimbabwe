@@ -1,32 +1,70 @@
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import { X } from 'lucide-react';
 
 const HeroMap = () => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<mapboxgl.Map | null>(null);
+  const [showInfo, setShowInfo] = useState(true);
 
-  // Mock mechanic locations in Harare within 1km of the center point
-  const mechanicLocations = [
-    { id: 1, name: "Tendai's Auto Service", lng: 31.04699297269952, lat: -17.82079364263404, specialty: "Engine Repair" },
-    { id: 2, name: "Chipo's Garage", lng: 31.04899297269952, lat: -17.81879364263404, specialty: "Brake Service" },
-    { id: 3, name: "Taurai Motors", lng: 31.04499297269952, lat: -17.82279364263404, specialty: "Oil Change" },
-    { id: 4, name: "Grace Auto Fix", lng: 31.04799297269952, lat: -17.82179364263404, specialty: "Transmission" },
-    { id: 5, name: "Blessed Car Care", lng: 31.04599297269952, lat: -17.81979364263404, specialty: "AC Repair" },
-  ];
+  // Generate 35 mock mechanic locations within 4km radius of Harare center
+  const generateMechanicLocations = () => {
+    const centerLat = -17.82079364263404;
+    const centerLng = 31.04699297269952;
+    const locations = [];
+    
+    const mechanicNames = [
+      "Tendai's Auto Service", "Chipo's Garage", "Taurai Motors", "Grace Auto Fix", 
+      "Blessed Car Care", "Munyaradzi Mechanics", "Farai's Workshop", "Nyasha Auto Repair",
+      "Takudzwa Motors", "Rumbidzai Garage", "Tinashe Auto Care", "Priscilla's Service",
+      "Chamunorwa Motors", "Vongai Auto Fix", "Shepard's Garage", "Melody Car Care",
+      "Tapiwa Motors", "Chenai Auto Service", "Ngoni's Workshop", "Chiedza Garage",
+      "Tinotenda Motors", "Rudo Auto Repair", "Sharai's Service", "Perseverance Garage",
+      "Clever Motors", "Rutendo Auto Care", "Washington Garage", "Fungai's Workshop",
+      "Tariro Motors", "Patience Auto Fix", "Knowledge Garage", "Lorraine Car Care",
+      "Brian's Auto Service", "Kudzai Motors", "Admire's Workshop"
+    ];
+
+    const specialties = [
+      "Engine Repair", "Brake Service", "Oil Change", "Transmission", "AC Repair",
+      "Electrical", "Battery", "Suspension", "Bodywork", "Tire Service"
+    ];
+
+    for (let i = 0; i < 35; i++) {
+      // Generate random point within 4km radius
+      const angle = Math.random() * 2 * Math.PI;
+      const radiusKm = Math.random() * 4; // 0-4km radius
+      const radiusDeg = radiusKm / 111.32; // Convert km to degrees (approximate)
+      
+      const lat = centerLat + (radiusDeg * Math.cos(angle));
+      const lng = centerLng + (radiusDeg * Math.sin(angle));
+      
+      locations.push({
+        id: i + 1,
+        name: mechanicNames[i % mechanicNames.length],
+        lng: lng,
+        lat: lat,
+        specialty: specialties[Math.floor(Math.random() * specialties.length)]
+      });
+    }
+    
+    return locations;
+  };
+
+  const mechanicLocations = generateMechanicLocations();
 
   useEffect(() => {
     if (!mapContainer.current) return;
 
-    // Use the provided Mapbox token
     mapboxgl.accessToken = 'pk.eyJ1IjoidGhlc29mdHdhcmVwaW1wIiwiYSI6ImNtYnR3YnV5MTA4c20ybXMweDFjNjdxYWUifQ.nACKCvMM6LFpWuSRuvsWRg';
     
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
-      style: 'mapbox://styles/mapbox/light-v11',
+      style: 'mapbox://styles/mapbox/streets-v12',
       center: [31.04699297269952, -17.82079364263404],
-      zoom: 14,
+      zoom: 12,
     });
 
     // Add navigation controls
@@ -35,22 +73,26 @@ const HeroMap = () => {
       'top-right'
     );
 
-    // Add markers for mechanic locations
+    // Add red markers for mechanic locations
     mechanicLocations.forEach((location) => {
-      // Create a custom marker element
+      // Create a red marker element
       const el = document.createElement('div');
       el.className = 'custom-marker';
-      el.style.backgroundImage = 'url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCAzMCAzMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTUiIGN5PSIxNSIgcj0iMTUiIGZpbGw9IiM4QjVDRjYiLz4KPGNpcmNsZSBjeD0iMTUiIGN5PSIxNSIgcj0iOCIgZmlsbD0id2hpdGUiLz4KPHN2ZyB4PSI5IiB5PSI5IiB3aWR0aD0iMTIiIGhlaWdodD0iMTIiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjOEI1Q0Y2IiBzdHJva2Utd2lkdGg9IjIiPgo8cGF0aCBkPSJNMTQgMTJhMiAyIDAgMCAwLTQgMCAyIDIgMCAwIDAgNCAiLz4KPHN2ZyB4PSIwIiB5PSIwIiB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjOEI1Q0Y2IiBzdHJva2Utd2lkdGg9IjIiPgo8cGF0aCBkPSJNMTcgOWgtMmwtMyAzLTMtM0g3bC0yIDJ2MTBhMiAyIDAgMCAwIDIgMmgxMGEyIDIgMCAwIDAgMi0yVjExbC0yLTJ6Ii8+Cjwvc3ZnPgo8L3N2Zz4K)';
-      el.style.width = '30px';
-      el.style.height = '30px';
+      el.style.backgroundImage = `url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z' fill='%23ef4444'/%3E%3Ccircle cx='12' cy='9' r='2.5' fill='white'/%3E%3C/svg%3E")`;
+      el.style.width = '24px';
+      el.style.height = '24px';
       el.style.backgroundSize = 'cover';
       el.style.cursor = 'pointer';
+      el.style.border = 'none';
 
       // Create popup
       const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
-        `<div class="p-2">
-          <h3 class="font-semibold text-purple-900">${location.name}</h3>
+        `<div class="p-3">
+          <h3 class="font-semibold text-purple-900 mb-1">${location.name}</h3>
           <p class="text-sm text-gray-600">${location.specialty}</p>
+          <button class="mt-2 px-3 py-1 bg-purple-600 text-white text-xs rounded hover:bg-purple-700">
+            View Profile
+          </button>
         </div>`
       );
 
@@ -68,12 +110,24 @@ const HeroMap = () => {
   }, []);
 
   return (
-    <div className="relative w-full h-64 rounded-xl overflow-hidden shadow-lg">
+    <div className="relative w-full h-80 md:h-96 -mx-4 sm:-mx-6 lg:-mx-8">
       <div ref={mapContainer} className="absolute inset-0" />
-      <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm rounded-lg p-3 shadow-lg">
-        <h3 className="font-semibold text-purple-900 text-sm mb-1">Mechanics Near You</h3>
-        <p className="text-xs text-gray-600">Click markers to view details</p>
-      </div>
+      {showInfo && (
+        <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm rounded-lg p-3 shadow-lg max-w-xs">
+          <div className="flex items-start justify-between">
+            <div>
+              <h3 className="font-semibold text-purple-900 text-sm mb-1">Mechanics Near You</h3>
+              <p className="text-xs text-gray-600">Click markers to view details</p>
+            </div>
+            <button 
+              onClick={() => setShowInfo(false)}
+              className="ml-2 text-gray-400 hover:text-gray-600 transition-colors"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
