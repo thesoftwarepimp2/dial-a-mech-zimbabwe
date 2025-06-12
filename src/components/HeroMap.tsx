@@ -19,9 +19,8 @@ const HeroMap = () => {
   useEffect(() => {
     if (!mapContainer.current) return;
 
-    // For demo purposes, using a placeholder token
-    // In production, user should add their Mapbox token
-    mapboxgl.accessToken = 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
+    // Use the provided Mapbox token
+    mapboxgl.accessToken = 'pk.eyJ1IjoidGhlc29mdHdhcmVwaW1wIiwiYSI6ImNtYnR3YnV5MTA4c20ybXMweDFjNjdxYWUifQ.nACKCvMM6LFpWuSRuvsWRg';
     
     map.current = new mapboxgl.Map({
       container: mapContainer.current,

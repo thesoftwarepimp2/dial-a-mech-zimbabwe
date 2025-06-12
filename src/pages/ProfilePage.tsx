@@ -37,7 +37,7 @@ const ProfilePage = () => {
             <Card>
               <CardContent className="p-6 text-center">
                 <Avatar className="w-24 h-24 mx-auto mb-4">
-                  <AvatarImage src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&object=faces&crop=face" />
+                  <AvatarImage src="/lovable-uploads/5664175e-32e7-4322-9060-b9c92974f0af.png" />
                   <AvatarFallback>JM</AvatarFallback>
                 </Avatar>
                 <h3 className="font-semibold text-lg text-gray-900 mb-2">{user.name}</h3>
