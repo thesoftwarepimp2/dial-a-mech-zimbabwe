@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -42,7 +43,12 @@ const MechanicCard: React.FC<MechanicCardProps> = ({ mechanic }) => {
           
           <div className="flex-1">
             <div className="flex items-center justify-between mb-2">
-              <h3 className="font-semibold text-lg text-gray-900">{mechanic.name}</h3>
+              <Link 
+                to={`/mechanic/${mechanic.id}`}
+                className="font-semibold text-lg text-gray-900 hover:text-primary transition-colors"
+              >
+                {mechanic.name}
+              </Link>
               <div className="flex items-center space-x-1">
                 <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                 <span className="text-sm font-medium">{mechanic.rating}</span>

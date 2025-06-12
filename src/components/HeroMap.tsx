@@ -110,8 +110,8 @@ const HeroMap = () => {
   }, []);
 
   return (
-    <div className="relative w-full h-80 md:h-96 -mx-4 sm:-mx-6 lg:-mx-8">
-      <div ref={mapContainer} className="absolute inset-0" />
+    <div className="relative w-full h-80 md:h-96">
+      <div ref={mapContainer} className="absolute inset-0 rounded-2xl" />
       {showInfo && (
         <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm rounded-lg p-3 shadow-lg max-w-xs">
           <div className="flex items-start justify-between">

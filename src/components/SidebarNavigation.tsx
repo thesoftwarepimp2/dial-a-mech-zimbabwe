@@ -41,7 +41,7 @@ const menuItems = [
 const authItems = [
   {
     title: "Sign Up as Mechanic",
-    url: "/auth?tab=mechanic",
+    url: "/mechanic-signup",
     icon: Wrench,
   },
   {

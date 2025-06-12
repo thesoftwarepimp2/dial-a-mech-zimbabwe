@@ -16,8 +16,8 @@ const HeroSection = () => {
             <span className="block text-yellow-300">Near You in Zimbabwe</span>
           </h1>
           
-          <div className="mb-8 px-4 sm:px-6 lg:px-8">
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 animate-fade-up">
+          <div className="mb-8 -mx-4 sm:-mx-6 lg:-mx-8">
+            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-0 animate-fade-up overflow-hidden">
               <HeroMap />
             </div>
           </div>
