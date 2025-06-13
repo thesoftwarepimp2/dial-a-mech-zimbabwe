@@ -3,10 +3,12 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { SidebarTrigger } from '@/components/ui/sidebar';
-import { Home, Search, User, Calendar } from 'lucide-react';
+import { Home, Search, User, Calendar, Bell, LogOut } from 'lucide-react';
+import { useAuth } from '../App';
 
 const Navigation = () => {
   const location = useLocation();
+  const { logout } = useAuth();
 
   const navItems = [
     { path: '/', icon: Home, label: 'Home' },
@@ -14,6 +16,10 @@ const Navigation = () => {
     { path: '/bookings', icon: Calendar, label: 'Bookings' },
     { path: '/profile', icon: User, label: 'Profile' },
   ];
+
+  const handleLogout = () => {
+    logout();
+  };
 
   return (
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-border">
@@ -48,11 +54,12 @@ const Navigation = () => {
           </nav>
 
           <div className="flex items-center space-x-3">
-            <Button variant="outline" asChild>
-              <Link to="/auth">Sign In</Link>
+            <Button variant="ghost" size="icon">
+              <Bell className="w-4 h-4" />
             </Button>
-            <Button asChild>
-              <Link to="/auth?tab=register">Get Started</Link>
+            <Button variant="outline" onClick={handleLogout}>
+              <LogOut className="w-4 h-4 mr-2" />
+              Sign Out
             </Button>
           </div>
         </div>

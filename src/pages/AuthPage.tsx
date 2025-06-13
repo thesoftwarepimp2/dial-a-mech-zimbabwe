@@ -6,41 +6,57 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Separator } from '@/components/ui/separator';
-import { Link } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../App';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Info } from 'lucide-react';
 
 const AuthPage = () => {
   const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    
     // Simulate API call
-    setTimeout(() => setLoading(false), 2000);
+    setTimeout(() => {
+      // Check dummy credentials
+      if (email === 'user@dialmech.com' && password === 'password123') {
+        login();
+        navigate('/');
+      } else {
+        alert('Invalid credentials. Please use the dummy credentials provided.');
+      }
+      setLoading(false);
+    }, 1000);
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 py-12">
       <div className="container mx-auto px-4">
         <div className="max-w-md mx-auto">
-          <div className="mb-6">
-            <Button variant="ghost" asChild className="mb-4">
-              <Link to="/">
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Back to Home
-              </Link>
-            </Button>
-            
-            <div className="text-center mb-8">
-              <img 
-                src="/lovable-uploads/872acf59-658d-4140-ac69-5b5b8025bb8b.png" 
-                alt="Dial-A-Mech" 
-                className="h-12 w-auto mx-auto mb-4"
-              />
-              <h1 className="text-2xl font-bold text-gray-900">Welcome to Dial-A-Mech</h1>
-              <p className="text-gray-600">Your trusted automotive service platform</p>
-            </div>
+          <div className="text-center mb-8">
+            <img 
+              src="/lovable-uploads/872acf59-658d-4140-ac69-5b5b8025bb8b.png" 
+              alt="Dial-A-Mech" 
+              className="h-12 w-auto mx-auto mb-4"
+            />
+            <h1 className="text-2xl font-bold text-gray-900">Welcome to Dial-A-Mech</h1>
+            <p className="text-gray-600">Your trusted automotive service platform</p>
           </div>
+
+          <Alert className="mb-6">
+            <Info className="h-4 w-4" />
+            <AlertDescription>
+              <strong>Demo Credentials:</strong><br />
+              Email: user@dialmech.com<br />
+              Password: password123
+            </AlertDescription>
+          </Alert>
 
           <Card className="shadow-lg">
             <CardHeader>
@@ -61,6 +77,8 @@ const AuthPage = () => {
                         id="email" 
                         placeholder="Enter your email or +263..." 
                         type="text"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         required
                       />
                     </div>
@@ -71,6 +89,8 @@ const AuthPage = () => {
                         id="password" 
                         type="password" 
                         placeholder="Enter your password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                         required
                       />
                     </div>
