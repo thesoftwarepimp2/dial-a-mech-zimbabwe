@@ -1,15 +1,20 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Navigation from '@/components/Navigation';
 import HeroSection from '@/components/HeroSection';
 import ServiceCategories from '@/components/ServiceCategories';
 import FeaturedMechanics from '@/components/FeaturedMechanics';
 import PromotionsSection from '@/components/PromotionsSection';
+import SponsoredAdvert from '@/components/SponsoredAdvert';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Star, Shield, Clock, Award } from 'lucide-react';
 
 const Index = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const features = [
     {
       icon: Shield,
@@ -56,6 +61,14 @@ const Index = () => {
       </section>
       
       <ServiceCategories />
+      
+      {/* Sponsored Advert after Services */}
+      <section className="py-8 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <SponsoredAdvert />
+        </div>
+      </section>
+      
       <FeaturedMechanics />
       
       {/* Features Section */}

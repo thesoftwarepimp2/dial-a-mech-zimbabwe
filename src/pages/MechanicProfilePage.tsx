@@ -1,14 +1,17 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Navigation from '@/components/Navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Star, MapPin, Clock, Phone, Share, Heart, Calendar, Play, Award, CheckCircle } from 'lucide-react';
+import { Star, MapPin, Clock, Phone, Share, Heart, Calendar, Award, CheckCircle } from 'lucide-react';
 
 const MechanicProfilePage = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const { id } = useParams();
   const [isLiked, setIsLiked] = useState(false);
 
@@ -45,17 +48,17 @@ const MechanicProfilePage = () => {
     {
       id: '88v4yHsSF_I',
       title: 'Engine Diagnostic Process',
-      thumbnail: 'https://img.youtube.com/vi/88v4yHsSF_I/maxresdefault.jpg'
+      embedUrl: 'https://www.youtube.com/embed/88v4yHsSF_I?autoplay=1&mute=1'
     },
     {
       id: 'ltEMcBDYdt8', 
       title: 'Brake Service Demonstration',
-      thumbnail: 'https://img.youtube.com/vi/ltEMcBDYdt8/maxresdefault.jpg'
+      embedUrl: 'https://www.youtube.com/embed/ltEMcBDYdt8?autoplay=1&mute=1'
     },
     {
       id: '_eref3-TCKM',
       title: 'Oil Change Best Practices',
-      thumbnail: 'https://img.youtube.com/vi/_eref3-TCKM/maxresdefault.jpg'
+      embedUrl: 'https://www.youtube.com/embed/_eref3-TCKM?autoplay=1&mute=1'
     }
   ];
 
@@ -93,30 +96,30 @@ const MechanicProfilePage = () => {
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <Card className="mb-6">
-          <CardContent className="p-6">
-            <div className="flex flex-col lg:flex-row gap-6">
+          <CardContent className="p-4 sm:p-6">
+            <div className="flex flex-col gap-6">
               {/* Profile Image and Basic Info */}
               <div className="flex flex-col sm:flex-row gap-4 lg:gap-6">
-                <div className="relative">
+                <div className="relative flex-shrink-0 self-center sm:self-start">
                   <img 
                     src={mechanic.avatar} 
                     alt={mechanic.name}
-                    className="w-32 h-32 rounded-xl object-cover"
+                    className="w-24 h-24 sm:w-32 sm:h-32 rounded-xl object-cover"
                   />
                   {mechanic.verified && (
-                    <div className="absolute -top-2 -right-2 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
-                      <CheckCircle className="w-5 h-5 text-white" />
+                    <div className="absolute -top-2 -right-2 w-6 h-6 sm:w-8 sm:h-8 bg-green-500 rounded-full flex items-center justify-center">
+                      <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                     </div>
                   )}
                 </div>
                 
-                <div className="flex-1">
-                  <div className="flex items-start justify-between mb-3">
-                    <div>
-                      <h1 className="text-2xl font-bold text-gray-900">{mechanic.name}</h1>
-                      <p className="text-lg text-primary font-semibold">{mechanic.businessName}</p>
+                <div className="flex-1 min-w-0">
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-3 gap-2">
+                    <div className="min-w-0">
+                      <h1 className="text-xl sm:text-2xl font-bold text-gray-900 truncate">{mechanic.name}</h1>
+                      <p className="text-base sm:text-lg text-primary font-semibold truncate">{mechanic.businessName}</p>
                     </div>
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-center space-x-2 flex-shrink-0">
                       <Button 
                         variant="outline" 
                         size="sm"
@@ -130,48 +133,48 @@ const MechanicProfilePage = () => {
                     </div>
                   </div>
 
-                  <div className="flex items-center space-x-4 text-sm text-gray-600 mb-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 text-sm text-gray-600 mb-4 gap-2">
                     <div className="flex items-center space-x-1">
-                      <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                      <Star className="w-4 h-4 fill-yellow-400 text-yellow-400 flex-shrink-0" />
                       <span className="font-medium">{mechanic.rating}</span>
                       <span>({mechanic.reviewCount} reviews)</span>
                     </div>
                     <div className="flex items-center space-x-1">
-                      <Award className="w-4 h-4" />
+                      <Award className="w-4 h-4 flex-shrink-0" />
                       <span>{mechanic.experience} experience</span>
                     </div>
                     <div className="flex items-center space-x-1">
-                      <MapPin className="w-4 h-4" />
-                      <span>{mechanic.location} • {mechanic.distance}</span>
+                      <MapPin className="w-4 h-4 flex-shrink-0" />
+                      <span className="truncate">{mechanic.location} • {mechanic.distance}</span>
                     </div>
                   </div>
 
-                  <div className="flex flex-wrap gap-2 mb-4">
+                  <div className="flex flex-wrap gap-1 mb-4">
                     {mechanic.specialties.map((specialty, index) => (
-                      <Badge key={index} variant="secondary">
+                      <Badge key={index} variant="secondary" className="text-xs">
                         {specialty}
                       </Badge>
                     ))}
                   </div>
 
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-4">
-                      <span className="text-lg font-semibold text-primary">{mechanic.priceRange}</span>
+                  <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 gap-2">
+                      <span className="text-base sm:text-lg font-semibold text-primary">{mechanic.priceRange}</span>
                       <Badge variant={mechanic.isAvailable ? "default" : "secondary"}>
                         {mechanic.isAvailable ? "Available Now" : "Busy"}
                       </Badge>
                       <div className="flex items-center space-x-1 text-sm text-gray-600">
-                        <Clock className="w-4 h-4" />
+                        <Clock className="w-4 h-4 flex-shrink-0" />
                         <span>{mechanic.responseTime}</span>
                       </div>
                     </div>
                     
-                    <div className="flex space-x-3">
-                      <Button variant="outline">
+                    <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3">
+                      <Button variant="outline" className="flex-1 sm:flex-initial">
                         <Phone className="w-4 h-4 mr-2" />
                         Call Now
                       </Button>
-                      <Button>
+                      <Button className="flex-1 sm:flex-initial">
                         <Calendar className="w-4 h-4 mr-2" />
                         Book Service
                       </Button>
@@ -186,25 +189,25 @@ const MechanicProfilePage = () => {
         {/* Content Tabs */}
         <Tabs defaultValue="about" className="space-y-6">
           <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="about">About</TabsTrigger>
-            <TabsTrigger value="services">Services</TabsTrigger>
-            <TabsTrigger value="gallery">Gallery</TabsTrigger>
-            <TabsTrigger value="reviews">Reviews</TabsTrigger>
+            <TabsTrigger value="about" className="text-xs sm:text-sm">About</TabsTrigger>
+            <TabsTrigger value="services" className="text-xs sm:text-sm">Services</TabsTrigger>
+            <TabsTrigger value="gallery" className="text-xs sm:text-sm">Gallery</TabsTrigger>
+            <TabsTrigger value="reviews" className="text-xs sm:text-sm">Reviews</TabsTrigger>
           </TabsList>
 
           <TabsContent value="about">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               <div className="lg:col-span-2 space-y-6">
                 <Card>
-                  <CardContent className="p-6">
+                  <CardContent className="p-4 sm:p-6">
                     <h3 className="text-lg font-semibold mb-4">About {mechanic.name}</h3>
-                    <p className="text-gray-600 mb-4">{mechanic.description}</p>
+                    <p className="text-gray-600 mb-4 text-sm sm:text-base">{mechanic.description}</p>
                     
                     <div className="space-y-3">
                       <h4 className="font-semibold">Certifications & Qualifications</h4>
                       <div className="flex flex-wrap gap-2">
                         {mechanic.certifications.map((cert, index) => (
-                          <Badge key={index} variant="outline">
+                          <Badge key={index} variant="outline" className="text-xs">
                             <Award className="w-3 h-3 mr-1" />
                             {cert}
                           </Badge>
@@ -216,21 +219,20 @@ const MechanicProfilePage = () => {
 
                 {/* Demo Videos */}
                 <Card>
-                  <CardContent className="p-6">
+                  <CardContent className="p-4 sm:p-6">
                     <h3 className="text-lg font-semibold mb-4">Demo Videos</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 gap-4">
                       {videos.map((video, index) => (
-                        <div key={index} className="relative group cursor-pointer rounded-lg overflow-hidden">
-                          <img 
-                            src={video.thumbnail}
-                            alt={video.title}
-                            className="w-full h-32 object-cover"
-                          />
-                          <div className="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition-colors flex items-center justify-center">
-                            <Play className="w-8 h-8 text-white" />
-                          </div>
-                          <div className="absolute bottom-2 left-2 right-2">
-                            <p className="text-white text-xs font-medium">{video.title}</p>
+                        <div key={index} className="w-full">
+                          <h4 className="text-sm font-medium mb-2">{video.title}</h4>
+                          <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+                            <iframe
+                              src={video.embedUrl}
+                              title={video.title}
+                              className="absolute top-0 left-0 w-full h-full rounded-lg"
+                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                              allowFullScreen
+                            />
                           </div>
                         </div>
                       ))}

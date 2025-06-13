@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -8,9 +9,14 @@ import { Slider } from '@/components/ui/slider';
 import MechanicCard from '@/components/MechanicCard';
 import Navigation from '@/components/Navigation';
 import HeroMap from '@/components/HeroMap';
+import SponsoredAdvert from '@/components/SponsoredAdvert';
 import { Search, MapPin, Filter, Map, List } from 'lucide-react';
 
 const SearchPage = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const [viewMode, setViewMode] = useState<'list' | 'map'>('list');
   const [priceRange, setPriceRange] = useState([0, 100]);
 
@@ -259,7 +265,14 @@ const SearchPage = () => {
 
             {viewMode === 'list' ? (
               <div className="space-y-6">
-                {mechanics.map((mechanic) => (
+                {mechanics.slice(0, 3).map((mechanic) => (
+                  <MechanicCard key={mechanic.id} mechanic={mechanic} />
+                ))}
+                
+                {/* Sponsored Advert in middle of results */}
+                <SponsoredAdvert />
+                
+                {mechanics.slice(3).map((mechanic) => (
                   <MechanicCard key={mechanic.id} mechanic={mechanic} />
                 ))}
               </div>
