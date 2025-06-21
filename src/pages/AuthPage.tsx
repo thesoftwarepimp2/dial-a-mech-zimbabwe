@@ -25,7 +25,7 @@ const AuthPage = () => {
     // Simulate API call
     setTimeout(() => {
       // Check dummy credentials
-      if (email === 'user@dialmech.com' && password === 'password123') {
+      if (email === 'user@dialmech.com' && password === 'pass') {
         login();
         navigate('/');
       } else {
